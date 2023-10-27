@@ -1,3 +1,8 @@
 variable "name" {
-  type     = string
+  type = string
+}
+
+# collaborators list
+variable "collaborators" {
+    type = list(string)
 }

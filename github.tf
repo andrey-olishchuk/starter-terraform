@@ -1,6 +1,6 @@
 resource "github_repository" "client" {
   name        = var.name
-  description = "Client app name"
+  description = "${var.name} application repo"
 
   visibility = "private"
 
@@ -9,4 +9,12 @@ resource "github_repository" "client" {
     repository           = "basic-blueprint"
     include_all_branches = true
   }
+}
+
+resource "github_repository_collaborator" "collaborators" {
+  count = length(var.collaborators)
+  depends_on = [ github_repository.client ]
+  repository = github_repository.client.name
+  permission = "push"
+  username   = var.collaborators[count.index]
 }
